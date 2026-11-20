@@ -1,0 +1,832 @@
+[
+  {
+    "id": "handshaking-lemma",
+    "category": "Graph Theory",
+    "title": "Handshaking lemma",
+    "formula": "\\sum_{v\\in V}\\deg(v)=2|E|",
+    "conditions": "Finite undirected graph; each loop, if present, contributes $2$ to degree.",
+    "meaning": "The sum of all vertex degrees counts every edge twice.",
+    "example": "A path on $4$ vertices has degrees $1,2,2,1$, so their sum is $6=2\\cdot3$.",
+    "source": "West, Introduction to Graph Theory (2nd ed.); standard result.",
+    "tags": [
+      "degree",
+      "edges",
+      "counting"
+    ],
+    "aliases": [
+      "degree sum formula",
+      "handshake theorem"
+    ]
+  },
+  {
+    "id": "average-degree",
+    "category": "Graph Theory",
+    "title": "Average degree",
+    "formula": "\\overline d=\\frac{2|E|}{|V|}",
+    "conditions": "Finite nonempty undirected graph.",
+    "meaning": "Relates the average local degree to the total number of edges.",
+    "example": "For the cycle $C_5$, $|E|=|V|=5$, hence $\\overline d=2$.",
+    "source": "West, Introduction to Graph Theory (2nd ed.); standard result.",
+    "tags": [
+      "degree",
+      "edges"
+    ],
+    "aliases": [
+      "mean degree"
+    ]
+  },
+  {
+    "id": "complete-graph-edges",
+    "category": "Graph Theory",
+    "title": "Edges of a complete graph",
+    "formula": "|E(K_n)|=\\binom{n}{2}=\\frac{n(n-1)}{2}",
+    "conditions": "Simple complete graph with $n\\ge1$ vertices.",
+    "meaning": "Each unordered pair of distinct vertices contributes exactly one edge.",
+    "example": "$K_5$ has $\\binom 52=10$ edges.",
+    "source": "West, Introduction to Graph Theory (2nd ed.); standard result.",
+    "tags": [
+      "edges",
+      "counting"
+    ],
+    "aliases": [
+      "K_n edge count",
+      "complete graph size"
+    ]
+  },
+  {
+    "id": "tree-edge-count",
+    "category": "Graph Theory",
+    "title": "Edge count of a tree",
+    "formula": "|E(T)|=|V(T)|-1",
+    "conditions": "Finite tree (connected and acyclic).",
+    "meaning": "Every tree has exactly one fewer edge than vertices.",
+    "example": "A tree with $10$ vertices has $9$ edges.",
+    "source": "West, Introduction to Graph Theory (2nd ed.); standard result.",
+    "tags": [
+      "trees",
+      "edges"
+    ],
+    "aliases": [
+      "tree size",
+      "n minus one"
+    ]
+  },
+  {
+    "id": "euler-planar",
+    "category": "Graph Theory",
+    "title": "Euler formula for planar graphs",
+    "formula": "|V|-|E|+|F|=2",
+    "conditions": "Connected graph with a fixed planar embedding; count the outer face.",
+    "meaning": "Connects vertices, edges, and faces of a connected plane graph.",
+    "example": "A square with one diagonal has $4$ vertices, $5$ edges and $3$ faces: $4-5+3=2$.",
+    "source": "West, Introduction to Graph Theory (2nd ed.); standard result.",
+    "tags": [
+      "planar graphs",
+      "counting"
+    ],
+    "aliases": [
+      "Euler characteristic",
+      "V E F"
+    ]
+  },
+  {
+    "id": "adjacency-matrix",
+    "category": "Graph Theory",
+    "title": "Adjacency matrix",
+    "formula": "A_{uv}=\\begin{cases}1&uv\\in E,\\\\0&uv\\notin E.\\end{cases}",
+    "conditions": "Finite simple graph with an indexed vertex set.",
+    "meaning": "Encodes edges in a matrix. For an undirected graph, $A=A^\\mathsf T$.",
+    "example": "For $P_3$, $A=\\begin{pmatrix}0&1&0\\\\1&0&1\\\\0&1&0\\end{pmatrix}$.",
+    "source": "Godsil & Royle, Algebraic Graph Theory; standard result.",
+    "tags": [
+      "adjacency",
+      "matrix"
+    ],
+    "aliases": [
+      "graph adjacency matrix"
+    ]
+  },
+  {
+    "id": "walk-count",
+    "category": "Graph Theory",
+    "title": "Counting walks by matrix powers",
+    "formula": "(A^k)_{uv}=\\#\\{\\text{walks of length }k\\text{ from }u\\text{ to }v\\}",
+    "conditions": "Finite graph with adjacency matrix $A$; $k$ is a nonnegative integer.",
+    "meaning": "Matrix multiplication counts successive choices of adjacent vertices.",
+    "example": "On $P_3$, $(A^2)_{11}=1$ (the walk $1\\to2\\to1$).",
+    "source": "Godsil & Royle, Algebraic Graph Theory; standard result.",
+    "tags": [
+      "adjacency",
+      "matrix",
+      "walks"
+    ],
+    "aliases": [
+      "walk counting",
+      "powers of adjacency matrix"
+    ]
+  },
+  {
+    "id": "closed-walks",
+    "category": "Graph Theory",
+    "title": "Trace counts closed walks",
+    "formula": "\\operatorname{tr}(A^k)=\\sum_{i=1}^{n}\\lambda_i^k",
+    "conditions": "Finite undirected graph; $A$ is its adjacency matrix and $\\lambda_i$ its eigenvalues with multiplicity; integer $k\\ge1$.",
+    "meaning": "The trace also equals the number of closed walks of length $k$.",
+    "example": "For $C_3$, $\\operatorname{tr}(A^3)=6$: three starting vertices and two orientations.",
+    "source": "Godsil & Royle, Algebraic Graph Theory; standard result.",
+    "tags": [
+      "trace",
+      "eigenvalue",
+      "adjacency",
+      "walks",
+      "spectrum"
+    ],
+    "aliases": [
+      "closed walk count",
+      "spectral moments"
+    ]
+  },
+  {
+    "id": "triangle-count",
+    "category": "Graph Theory",
+    "title": "Triangle count from adjacency spectrum",
+    "formula": "\\#K_3(G)=\\frac{\\operatorname{tr}(A^3)}{6}",
+    "conditions": "Finite simple undirected graph.",
+    "meaning": "Each triangle gives six length-$3$ closed walks (three starting vertices and two directions).",
+    "example": "For $K_4$, $\\operatorname{tr}(A^3)=24$, so there are $4$ triangles.",
+    "source": "Godsil & Royle, Algebraic Graph Theory; standard result.",
+    "tags": [
+      "trace",
+      "adjacency",
+      "eigenvalue",
+      "counting"
+    ],
+    "aliases": [
+      "number of triangles",
+      "trace A cubed"
+    ]
+  },
+  {
+    "id": "graph-laplacian",
+    "category": "Graph Theory",
+    "title": "Graph Laplacian",
+    "formula": "L=D-A",
+    "conditions": "Finite undirected graph; $D=\\operatorname{diag}(\\deg(v_1),\\ldots,\\deg(v_n))$.",
+    "meaning": "Subtracting the adjacency matrix from the degree matrix produces the combinatorial Laplacian.",
+    "example": "For $K_2$, $L=\\begin{pmatrix}1&-1\\\\-1&1\\end{pmatrix}$.",
+    "source": "Chung, Spectral Graph Theory; standard result.",
+    "tags": [
+      "laplacian",
+      "adjacency",
+      "matrix"
+    ],
+    "aliases": [
+      "combinatorial Laplacian",
+      "degree minus adjacency"
+    ]
+  },
+  {
+    "id": "laplacian-quadratic",
+    "category": "Graph Theory",
+    "title": "Laplacian quadratic form",
+    "formula": "x^{\\mathsf T}Lx=\\sum_{\\{u,v\\}\\in E}(x_u-x_v)^2",
+    "conditions": "Finite simple undirected graph and real vector $x\\in\\mathbb R^{|V|}$.",
+    "meaning": "Shows the graph Laplacian is positive semidefinite and measures variation across edges.",
+    "example": "For $K_2$ and $x=(1,3)^\\mathsf T$, $x^\\mathsf TLx=(1-3)^2=4$.",
+    "source": "Chung, Spectral Graph Theory; standard result.",
+    "tags": [
+      "laplacian",
+      "positive semidefinite",
+      "eigenvalue"
+    ],
+    "aliases": [
+      "Laplacian energy",
+      "Dirichlet energy"
+    ]
+  },
+  {
+    "id": "laplacian-components",
+    "category": "Graph Theory",
+    "title": "Zero eigenvalues and components",
+    "formula": "\\operatorname{mult}_{L}(0)=c(G)",
+    "conditions": "Finite undirected graph; $c(G)$ denotes its number of connected components.",
+    "meaning": "The dimension of the Laplacian nullspace equals the number of components.",
+    "example": "For the disjoint union $K_2\\sqcup K_1$, the Laplacian eigenvalue $0$ has multiplicity $2$.",
+    "source": "Chung, Spectral Graph Theory; standard result.",
+    "tags": [
+      "laplacian",
+      "eigenvalue",
+      "connectivity",
+      "spectrum"
+    ],
+    "aliases": [
+      "Laplacian nullity",
+      "connected components eigenvalue"
+    ]
+  },
+  {
+    "id": "algebraic-connectivity",
+    "category": "Graph Theory",
+    "title": "Algebraic connectivity",
+    "formula": "G\\text{ connected}\\iff\\lambda_2(L)>0",
+    "conditions": "Undirected graph with $n\\ge2$ and Laplacian eigenvalues $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$.",
+    "meaning": "The second-smallest Laplacian eigenvalue detects graph connectivity.",
+    "example": "For $P_3$, Laplacian eigenvalues are $0,1,3$, so $\\lambda_2=1>0$.",
+    "source": "Chung, Spectral Graph Theory; standard result.",
+    "tags": [
+      "laplacian",
+      "eigenvalue",
+      "connectivity",
+      "spectrum"
+    ],
+    "aliases": [
+      "Fiedler value",
+      "second Laplacian eigenvalue"
+    ]
+  },
+  {
+    "id": "matrix-tree",
+    "category": "Graph Theory",
+    "title": "Matrix–tree theorem",
+    "formula": "\\tau(G)=\\det L^{(v)}",
+    "conditions": "Finite undirected graph; $L^{(v)}$ is obtained by deleting row and column $v$ from the Laplacian.",
+    "meaning": "Any principal cofactor of the Laplacian counts spanning trees.",
+    "example": "For $K_3$, $L^{(3)}=\\begin{pmatrix}2&-1\\\\-1&2\\end{pmatrix}$, so $\\tau(K_3)=3$.",
+    "source": "Godsil & Royle, Algebraic Graph Theory; standard result.",
+    "tags": [
+      "laplacian",
+      "determinant",
+      "spanning trees",
+      "trees"
+    ],
+    "aliases": [
+      "Kirchhoff theorem",
+      "spanning tree count"
+    ]
+  },
+  {
+    "id": "cayley",
+    "category": "Graph Theory",
+    "title": "Cayley formula",
+    "formula": "\\tau(K_n)=n^{n-2}",
+    "conditions": "Complete labeled graph $K_n$ with $n\\ge2$.",
+    "meaning": "Counts all labeled trees on a fixed set of $n$ vertices.",
+    "example": "There are $4^{4-2}=16$ labeled trees on four vertices.",
+    "source": "West, Introduction to Graph Theory (2nd ed.); standard result.",
+    "tags": [
+      "trees",
+      "spanning trees",
+      "counting"
+    ],
+    "aliases": [
+      "Cayley tree formula",
+      "labeled trees"
+    ]
+  },
+  {
+    "id": "regular-eigenvalue",
+    "category": "Graph Theory",
+    "title": "Eigenvalue of a regular graph",
+    "formula": "A\\mathbf1=d\\mathbf1",
+    "conditions": "Undirected $d$-regular graph with adjacency matrix $A$.",
+    "meaning": "The all-ones vector is an adjacency eigenvector with eigenvalue $d$.",
+    "example": "For $C_5$ (2-regular), $A\\mathbf1=2\\mathbf1$.",
+    "source": "Godsil & Royle, Algebraic Graph Theory; standard result.",
+    "tags": [
+      "eigenvalue",
+      "adjacency",
+      "regular graphs",
+      "spectrum"
+    ],
+    "aliases": [
+      "regular graph degree eigenvalue"
+    ]
+  },
+  {
+    "id": "bipartite-symmetry",
+    "category": "Graph Theory",
+    "title": "Bipartite spectral symmetry",
+    "formula": "\\lambda\\in\\operatorname{spec}(A)\\Rightarrow-\\lambda\\in\\operatorname{spec}(A)",
+    "conditions": "Finite undirected bipartite graph; eigenvalues counted with multiplicity.",
+    "meaning": "The adjacency spectrum of a bipartite graph is symmetric about zero.",
+    "example": "For $P_3$, the adjacency eigenvalues are $\\sqrt2,0,-\\sqrt2$.",
+    "source": "Godsil & Royle, Algebraic Graph Theory; standard result.",
+    "tags": [
+      "eigenvalue",
+      "adjacency",
+      "spectrum",
+      "bipartite"
+    ],
+    "aliases": [
+      "bipartite eigenvalues",
+      "symmetric spectrum"
+    ]
+  },
+  {
+    "id": "tree-chromatic",
+    "category": "Graph Theory",
+    "title": "Chromatic polynomial of a tree",
+    "formula": "P_T(k)=k(k-1)^{n-1}",
+    "conditions": "Tree with $n\\ge1$ vertices; $k$ is a positive integer for counting proper colorings.",
+    "meaning": "Choose any color for the root and then any color except its parent’s for each other vertex.",
+    "example": "For $P_3$ with $k=3$, $P_T(3)=3\\cdot2^2=12$.",
+    "source": "West, Introduction to Graph Theory (2nd ed.); standard result.",
+    "tags": [
+      "trees",
+      "coloring",
+      "counting"
+    ],
+    "aliases": [
+      "tree coloring formula",
+      "chromatic polynomial"
+    ]
+  },
+  {
+    "id": "laplacian-trace",
+    "category": "Graph Theory",
+    "title": "Laplacian trace and degrees",
+    "formula": "\\operatorname{tr}(L)=\\sum_{v\\in V}\\deg(v)=2|E|",
+    "conditions": "Finite simple undirected graph and combinatorial Laplacian $L$.",
+    "meaning": "The sum of the Laplacian eigenvalues equals twice the number of edges.",
+    "example": "For $P_3$, $\\operatorname{tr}(L)=1+2+1=4=2\\cdot2$.",
+    "source": "Chung, Spectral Graph Theory; standard result.",
+    "tags": [
+      "trace",
+      "laplacian",
+      "eigenvalue",
+      "edges"
+    ],
+    "aliases": [
+      "sum of Laplacian eigenvalues"
+    ]
+  },
+  {
+    "id": "adjacency-square-trace",
+    "category": "Graph Theory",
+    "title": "Adjacency eigenvalue square sum",
+    "formula": "\\sum_{i=1}^n\\lambda_i(A)^2=\\operatorname{tr}(A^2)=2|E|",
+    "conditions": "Finite simple undirected graph.",
+    "meaning": "The sum of squared adjacency eigenvalues counts oriented edge traversals.",
+    "example": "For $K_3$, eigenvalues $2,-1,-1$ give $4+1+1=6=2\\cdot3$.",
+    "source": "Godsil & Royle, Algebraic Graph Theory; standard result.",
+    "tags": [
+      "trace",
+      "eigenvalue",
+      "adjacency",
+      "spectrum"
+    ],
+    "aliases": [
+      "second spectral moment",
+      "A squared trace"
+    ]
+  },
+  {
+    "id": "complement-adjacency",
+    "category": "Graph Theory",
+    "title": "Complement adjacency matrix",
+    "formula": "A(\\overline G)=J-I-A(G)",
+    "conditions": "Finite simple graph on $n$ vertices; $J$ is the $n\\times n$ all-ones matrix.",
+    "meaning": "Off-diagonal adjacency in the complement is exactly non-adjacency in the original graph.",
+    "example": "The complement of $K_n$ has adjacency matrix $0=J-I-(J-I)$.",
+    "source": "Godsil & Royle, Algebraic Graph Theory; standard result.",
+    "tags": [
+      "adjacency",
+      "matrix",
+      "complement"
+    ],
+    "aliases": [
+      "graph complement formula"
+    ]
+  },
+  {
+    "id": "normalized-laplacian",
+    "category": "Graph Theory",
+    "title": "Normalized Laplacian",
+    "formula": "\\mathcal L=I-D^{-1/2}AD^{-1/2}",
+    "conditions": "Finite undirected graph with no isolated vertices (so $D^{-1/2}$ is defined).",
+    "meaning": "Degree normalization produces a Laplacian whose eigenvalues are in $[0,2]$.",
+    "example": "For $K_2$, $D=I$ and $\\mathcal L=\\begin{pmatrix}1&-1\\\\-1&1\\end{pmatrix}$.",
+    "source": "Chung, Spectral Graph Theory; standard result.",
+    "tags": [
+      "laplacian",
+      "eigenvalue",
+      "spectrum"
+    ],
+    "aliases": [
+      "symmetric normalized Laplacian"
+    ]
+  },
+  {
+    "id": "eigenpair",
+    "category": "Linear Algebra",
+    "title": "Eigenvalue and eigenvector",
+    "formula": "Av=\\lambda v,\\qquad v\\ne0",
+    "conditions": "Square matrix $A$; scalars and vectors over a field containing $\\lambda$.",
+    "meaning": "An eigenvector changes only by a scalar factor under the linear map.",
+    "example": "If $A=\\operatorname{diag}(2,3)$, then $A(1,0)^\\mathsf T=2(1,0)^\\mathsf T$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "eigenvalue",
+      "eigenvector"
+    ],
+    "aliases": [
+      "eigenpair",
+      "eigen equation"
+    ]
+  },
+  {
+    "id": "characteristic-polynomial",
+    "category": "Linear Algebra",
+    "title": "Characteristic polynomial",
+    "formula": "p_A(t)=\\det(tI-A)",
+    "conditions": "Square $n\\times n$ matrix $A$.",
+    "meaning": "Its roots, counted with algebraic multiplicity, are precisely the eigenvalues of $A$.",
+    "example": "For $A=\\operatorname{diag}(2,3)$, $p_A(t)=(t-2)(t-3)$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "characteristic polynomial",
+      "eigenvalue",
+      "determinant"
+    ],
+    "aliases": [
+      "char poly",
+      "charpoly",
+      "characteristic equation"
+    ]
+  },
+  {
+    "id": "trace-eigenvalues",
+    "category": "Linear Algebra",
+    "title": "Trace as the sum of eigenvalues",
+    "formula": "\\operatorname{tr}(A)=\\sum_{i=1}^{n}\\lambda_i",
+    "conditions": "Square matrix over $\\mathbb C$ (or use eigenvalues in an algebraic closure), with algebraic multiplicities.",
+    "meaning": "The diagonal sum equals the sum of all eigenvalues even when $A$ is not diagonalizable.",
+    "example": "For $A=\\begin{pmatrix}1&4\\\\0&3\\end{pmatrix}$, both sums equal $4$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "trace",
+      "eigenvalue",
+      "spectrum"
+    ],
+    "aliases": [
+      "sum of eigenvalues",
+      "trace identity"
+    ]
+  },
+  {
+    "id": "determinant-eigenvalues",
+    "category": "Linear Algebra",
+    "title": "Determinant as the product of eigenvalues",
+    "formula": "\\det(A)=\\prod_{i=1}^{n}\\lambda_i",
+    "conditions": "Square matrix, with eigenvalues in an algebraic closure and counted with algebraic multiplicity.",
+    "meaning": "The determinant vanishes exactly when zero is an eigenvalue.",
+    "example": "For $A=\\operatorname{diag}(2,3)$, $\\det A=2\\cdot3=6$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "determinant",
+      "eigenvalue",
+      "spectrum"
+    ],
+    "aliases": [
+      "product of eigenvalues"
+    ]
+  },
+  {
+    "id": "rank-nullity",
+    "category": "Linear Algebra",
+    "title": "Rank–nullity theorem",
+    "formula": "\\operatorname{rank}(A)+\\operatorname{nullity}(A)=n",
+    "conditions": "Matrix $A$ with $n$ columns, representing a linear map with $n$-dimensional domain.",
+    "meaning": "The dimensions of the image and kernel add to the domain dimension.",
+    "example": "For $A=\\begin{pmatrix}1&0&0\\\\0&1&0\\end{pmatrix}$, rank $=2$, nullity $=1$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "rank",
+      "nullity",
+      "dimension"
+    ],
+    "aliases": [
+      "dimension theorem",
+      "kernel dimension"
+    ]
+  },
+  {
+    "id": "spectral-theorem",
+    "category": "Linear Algebra",
+    "title": "Spectral theorem for real symmetric matrices",
+    "formula": "A=Q\\Lambda Q^{\\mathsf T}",
+    "conditions": "Real symmetric $n\\times n$ matrix; $Q$ orthogonal and $\\Lambda$ real diagonal.",
+    "meaning": "Every real symmetric matrix has an orthonormal eigenbasis.",
+    "example": "For $A=\\operatorname{diag}(2,3)$, choose $Q=I$ and $\\Lambda=A$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "eigenvalue",
+      "eigenvector",
+      "spectrum",
+      "orthogonality"
+    ],
+    "aliases": [
+      "orthogonal diagonalization",
+      "symmetric matrix eigendecomposition"
+    ]
+  },
+  {
+    "id": "cayley-hamilton",
+    "category": "Linear Algebra",
+    "title": "Cayley–Hamilton theorem",
+    "formula": "p_A(A)=0",
+    "conditions": "Square matrix $A$ with characteristic polynomial $p_A$.",
+    "meaning": "A matrix satisfies its own characteristic polynomial.",
+    "example": "For $A=\\operatorname{diag}(2,3)$, $(A-2I)(A-3I)=0$.",
+    "source": "Horn & Johnson, Matrix Analysis; standard result.",
+    "tags": [
+      "characteristic polynomial",
+      "matrix"
+    ],
+    "aliases": [
+      "Cayley Hamilton",
+      "matrix polynomial"
+    ]
+  },
+  {
+    "id": "trace-cyclic",
+    "category": "Linear Algebra",
+    "title": "Cyclic property of trace",
+    "formula": "\\operatorname{tr}(AB)=\\operatorname{tr}(BA)",
+    "conditions": "Matrices $A\\in\\mathbb F^{m\\times n}$ and $B\\in\\mathbb F^{n\\times m}$.",
+    "meaning": "The trace does not change when a product of two compatible matrices is cyclically reordered.",
+    "example": "For $A=(1\\ \\ 2)$ and $B=(3\\ \\ 4)^\\mathsf T$, both traces equal $11$.",
+    "source": "Horn & Johnson, Matrix Analysis; standard result.",
+    "tags": [
+      "trace",
+      "matrix"
+    ],
+    "aliases": [
+      "cyclic trace",
+      "trace commutation"
+    ]
+  },
+  {
+    "id": "determinant-product",
+    "category": "Linear Algebra",
+    "title": "Multiplicativity of determinant",
+    "formula": "\\det(AB)=\\det(A)\\det(B)",
+    "conditions": "Square matrices $A,B$ of equal size over a commutative field.",
+    "meaning": "The determinant of a composition is the product of determinants.",
+    "example": "For $A=\\operatorname{diag}(2,3)$ and $B=2I$, $\\det(AB)=6\\cdot4=24$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "determinant",
+      "matrix"
+    ],
+    "aliases": [
+      "determinant multiplication"
+    ]
+  },
+  {
+    "id": "invertibility-determinant",
+    "category": "Linear Algebra",
+    "title": "Invertibility criterion",
+    "formula": "A\\text{ invertible}\\iff\\det(A)\\ne0",
+    "conditions": "Square matrix $A$ over a field.",
+    "meaning": "An invertible matrix has full rank and no zero eigenvalue.",
+    "example": "The matrix $\\begin{pmatrix}1&2\\\\2&4\\end{pmatrix}$ is singular because its determinant is $0$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "determinant",
+      "rank",
+      "eigenvalue"
+    ],
+    "aliases": [
+      "singular matrix test",
+      "nonsingular matrix"
+    ]
+  },
+  {
+    "id": "orthogonal-projection",
+    "category": "Linear Algebra",
+    "title": "Orthogonal projection onto a column space",
+    "formula": "P=A(A^{\\mathsf T}A)^{-1}A^{\\mathsf T}",
+    "conditions": "Real matrix $A\\in\\mathbb R^{m\\times n}$ with linearly independent columns.",
+    "meaning": "Projects vectors in $\\mathbb R^m$ orthogonally onto the column space of $A$.",
+    "example": "For $A=(1,0)^\\mathsf T$, $P=\\operatorname{diag}(1,0)$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "projection",
+      "matrix",
+      "orthogonality"
+    ],
+    "aliases": [
+      "projection matrix",
+      "column space projector"
+    ]
+  },
+  {
+    "id": "least-squares",
+    "category": "Linear Algebra",
+    "title": "Least-squares solution (full column rank)",
+    "formula": "\\widehat x=(A^{\\mathsf T}A)^{-1}A^{\\mathsf T}b",
+    "conditions": "Real matrix $A\\in\\mathbb R^{m\\times n}$ with full column rank; vector $b\\in\\mathbb R^m$.",
+    "meaning": "Minimizes $\\|Ax-b\\|_2^2$ and solves the normal equations.",
+    "example": "For $A=(1,1)^\\mathsf T$ and $b=(2,4)^\\mathsf T$, $\\widehat x=3$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "projection",
+      "optimization",
+      "matrix"
+    ],
+    "aliases": [
+      "normal equations",
+      "ordinary least squares"
+    ]
+  },
+  {
+    "id": "singular-value-decomposition",
+    "category": "Linear Algebra",
+    "title": "Singular value decomposition",
+    "formula": "A=U\\Sigma V^{\\mathsf T}",
+    "conditions": "Real $m\\times n$ matrix; $U,V$ orthogonal and $\\Sigma$ rectangular diagonal with nonnegative singular values.",
+    "meaning": "Decomposes any real matrix into orthogonal changes of basis and axis scaling.",
+    "example": "For $A=\\operatorname{diag}(3,2)$, choose $U=V=I$ and $\\Sigma=A$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "spectrum",
+      "matrix",
+      "rank"
+    ],
+    "aliases": [
+      "SVD",
+      "singular values"
+    ]
+  },
+  {
+    "id": "frobenius-norm",
+    "category": "Linear Algebra",
+    "title": "Frobenius norm",
+    "formula": "\\|A\\|_F^2=\\operatorname{tr}(A^{\\mathsf T}A)=\\sum_{i,j}a_{ij}^2",
+    "conditions": "Real matrix $A$ (use conjugate transpose and $|a_{ij}|^2$ for complex matrices).",
+    "meaning": "The squared Frobenius norm is the sum of the squared matrix entries.",
+    "example": "For $A=\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}$, $\\|A\\|_F^2=30$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "trace",
+      "norm",
+      "matrix"
+    ],
+    "aliases": [
+      "matrix Frobenius norm",
+      "Hilbert Schmidt norm"
+    ]
+  },
+  {
+    "id": "powers-trace",
+    "category": "Linear Algebra",
+    "title": "Power traces and eigenvalues",
+    "formula": "\\operatorname{tr}(A^k)=\\sum_{i=1}^n\\lambda_i^k",
+    "conditions": "Square matrix $A$ and integer $k\\ge1$; eigenvalues counted algebraically.",
+    "meaning": "The trace of any positive integer power equals the corresponding spectral power sum.",
+    "example": "For $A=\\operatorname{diag}(2,3)$, $\\operatorname{tr}(A^2)=4+9=13$.",
+    "source": "Horn & Johnson, Matrix Analysis; standard result.",
+    "tags": [
+      "trace",
+      "eigenvalue",
+      "spectrum"
+    ],
+    "aliases": [
+      "spectral power sums",
+      "matrix moments"
+    ]
+  },
+  {
+    "id": "similarity-invariance",
+    "category": "Linear Algebra",
+    "title": "Similarity preserves characteristic polynomial",
+    "formula": "p_{P^{-1}AP}(t)=p_A(t)",
+    "conditions": "Square $A$ and invertible matrix $P$ of the same size.",
+    "meaning": "A change of basis does not change eigenvalues or the characteristic polynomial.",
+    "example": "The diagonal matrix $\\operatorname{diag}(1,2)$ is similar to $\\operatorname{diag}(2,1)$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "characteristic polynomial",
+      "eigenvalue",
+      "matrix"
+    ],
+    "aliases": [
+      "similar matrices",
+      "change of basis"
+    ]
+  },
+  {
+    "id": "algebraic-geometric-mult",
+    "category": "Linear Algebra",
+    "title": "Geometric vs. algebraic multiplicity",
+    "formula": "1\\le\\dim\\ker(A-\\lambda I)\\le m_{\\mathrm{alg}}(\\lambda)",
+    "conditions": "$\\lambda$ is an eigenvalue of a square matrix $A$; $m_{\\mathrm{alg}}$ is its multiplicity as a root of $p_A$.",
+    "meaning": "An eigenspace cannot have dimension greater than its eigenvalue’s characteristic-polynomial multiplicity.",
+    "example": "For $A=\\begin{pmatrix}2&1\\\\0&2\\end{pmatrix}$, algebraic multiplicity is $2$ but eigenspace dimension is $1$.",
+    "source": "Horn & Johnson, Matrix Analysis; standard result.",
+    "tags": [
+      "eigenvalue",
+      "nullity",
+      "characteristic polynomial"
+    ],
+    "aliases": [
+      "geometric multiplicity",
+      "algebraic multiplicity"
+    ]
+  },
+  {
+    "id": "psd-eigenvalues",
+    "category": "Linear Algebra",
+    "title": "Positive semidefinite criterion",
+    "formula": "A\\succeq0\\iff\\lambda_{\\min}(A)\\ge0",
+    "conditions": "Real symmetric matrix $A$; $A\\succeq0$ means $x^\\mathsf TAx\\ge0$ for all real $x$.",
+    "meaning": "A real symmetric matrix is positive semidefinite exactly when all eigenvalues are nonnegative.",
+    "example": "For $A=\\operatorname{diag}(0,2)$, both eigenvalues are nonnegative.",
+    "source": "Horn & Johnson, Matrix Analysis; standard result.",
+    "tags": [
+      "eigenvalue",
+      "positive semidefinite",
+      "spectrum"
+    ],
+    "aliases": [
+      "PSD",
+      "nonnegative eigenvalues"
+    ]
+  },
+  {
+    "id": "matrix-determinant-lemma",
+    "category": "Linear Algebra",
+    "title": "Matrix determinant lemma",
+    "formula": "\\det(A+uv^{\\mathsf T})=\\det(A)\\bigl(1+v^{\\mathsf T}A^{-1}u\\bigr)",
+    "conditions": "Invertible real $n\\times n$ matrix $A$ and vectors $u,v\\in\\mathbb R^n$.",
+    "meaning": "Computes the determinant after a rank-one update.",
+    "example": "For $A=I_2$ and $u=v=(1,0)^\\mathsf T$, the determinant is $2$.",
+    "source": "Horn & Johnson, Matrix Analysis; standard result.",
+    "tags": [
+      "determinant",
+      "rank",
+      "matrix"
+    ],
+    "aliases": [
+      "rank one determinant update",
+      "Sylvester determinant identity"
+    ]
+  },
+  {
+    "id": "orthogonal-eigenvectors",
+    "category": "Linear Algebra",
+    "title": "Orthogonality of distinct eigenvectors",
+    "formula": "\\lambda\\ne\\mu\\;\\Rightarrow\\;v_\\lambda^{\\mathsf T}v_\\mu=0",
+    "conditions": "Real symmetric matrix $A$, with eigenvectors corresponding to distinct eigenvalues $\\lambda,\\mu$.",
+    "meaning": "Eigenvectors of a real symmetric matrix from different eigenspaces are orthogonal.",
+    "example": "For $A=\\operatorname{diag}(2,3)$, $(1,0)^\\mathsf T$ and $(0,1)^\\mathsf T$ are orthogonal.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "eigenvalue",
+      "eigenvector",
+      "orthogonality"
+    ],
+    "aliases": [
+      "orthogonal eigenspaces"
+    ]
+  },
+  {
+    "id": "charpoly-trace-coeff",
+    "category": "Linear Algebra",
+    "title": "Trace in the characteristic polynomial",
+    "formula": "p_A(t)=t^n-\\operatorname{tr}(A)t^{n-1}+\\cdots",
+    "conditions": "Square $n\\times n$ matrix $A$ with monic characteristic polynomial $p_A(t)=\\det(tI-A)$.",
+    "meaning": "The coefficient of the next-to-highest term is the negative trace.",
+    "example": "For $A=\\operatorname{diag}(2,3)$, $p_A(t)=t^2-5t+6$.",
+    "source": "Horn & Johnson, Matrix Analysis; standard result.",
+    "tags": [
+      "characteristic polynomial",
+      "trace",
+      "eigenvalue"
+    ],
+    "aliases": [
+      "second characteristic coefficient",
+      "trace coefficient"
+    ]
+  },
+  {
+    "id": "inverse-eigenvalues",
+    "category": "Linear Algebra",
+    "title": "Eigenvalues of an inverse",
+    "formula": "Av=\\lambda v\\;\\Rightarrow\\;A^{-1}v=\\lambda^{-1}v",
+    "conditions": "Invertible square matrix $A$ and a nonzero eigenvector $v$.",
+    "meaning": "Taking the inverse reciprocates nonzero eigenvalues and preserves eigenvectors.",
+    "example": "If $A=\\operatorname{diag}(2,4)$, then $A^{-1}=\\operatorname{diag}(1/2,1/4)$.",
+    "source": "Strang, Introduction to Linear Algebra; standard result.",
+    "tags": [
+      "eigenvalue",
+      "matrix",
+      "spectrum"
+    ],
+    "aliases": [
+      "inverse spectrum",
+      "reciprocal eigenvalues"
+    ]
+  }
+]
