@@ -2,16 +2,16 @@
 
 A lightweight, searchable reference for **public, standard mathematics formulas** in graph theory and linear algebra. No frameworks, build tools, accounts, analytics, or backend required.
 
-## Features
+## Current scope: tag-first
 
-- Fast, live search across **title, formula, conditions, meaning, example, source, tags, aliases, and subject**
-- One-click tag filters, including `eigenvalue`, `trace`, and `characteristic polynomial`
-- Graph Theory / Linear Algebra subject filters, with optional combined keyword + tag filtering
-- KaTeX-rendered equations, plus expandable conditions, examples, and sources
-- Dark mode with remembered preference; responsive desktop and mobile design
-- Search deep links: e.g. `?q=trace&tag=eigenvalue&category=Linear+Algebra`
-- `/` or `Ctrl/Cmd + K` focuses search; `Esc` clears the current search
-- GitHub Actions automatically validates and publishes the static site to GitHub Pages on each push to `main`
+The public site currently exposes only the **eigenvalue** tag (23 formulas). It searches titles, LaTeX, conditions, meanings, examples, sources, aliases and tags within that tag. There are no library or subject-navigation menus. Other standard formulas remain in `site/data/formulas.json` for future curation but are not displayed.
+
+To publish another curated tag later, add its lowercase name to `ACTIVE_TAGS` in `site/assets/app.js`. Tags are navigation; every displayed formula must have the chosen tag in its data record. The current user-facing topic is eigenvalue.
+
+- Responsive desktop/mobile layout; KaTeX formulas; expandable conditions, examples and sources
+- Search links using `?q=...` and (once multiple tags are active) `?tag=...`
+- Remembered light/dark mode; `/` or `Ctrl/Cmd+K` focuses search
+- GitHub Pages deploys automatically on pushes to `main`
 
 ## Project structure
 
@@ -119,6 +119,6 @@ This repository is intended for **publicly known standard mathematical results**
 
 - Static HTML, CSS and JavaScript only. No npm, bundler, framework, database, or API keys.
 - Dynamic text is placed using DOM `textContent`; math is rendered with KaTeX using `trust: false`.
-- The CSS and JavaScript are first-party static files. KaTeX is pinned to version `0.19.1` on jsDelivr.
+- The CSS and JavaScript are first-party static files. KaTeX is pinned to version `0.16.22` on jsDelivr.
 - The deployment workflow publishes **only** the `site/` folder, excluding internal scripts and project notes from the website artifact.
 - Licensed under MIT for the website source code. If you add third-party content later, follow its separate license and attribution requirements.

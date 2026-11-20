@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A searchable, public collection of standard graph theory and linear algebra formulas." />
+    <meta name="description" content="A searchable eigenvalue formula reference, organized by mathematical tags." />
     <meta name="theme-color" content="#f7f9fc" />
-    <title>Formula Atlas · Math Formula Search</title>
+    <title>Eigenvalue · Formula Atlas</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
     <link rel="stylesheet" href="./assets/styles.css" />
@@ -18,16 +18,12 @@
     <div class="page-shell">
       <aside class="sidebar" aria-label="Formula filters">
         <a class="brand" href="./" aria-label="Formula Atlas home">
-          <span class="brand-mark" aria-hidden="true">∑</span>
+          <span class="brand-mark" aria-hidden="true">λ</span>
           <span class="brand-copy"><strong>Formula Atlas</strong><span>MATH REFERENCE</span></span>
         </a>
-        <p class="sidebar-intro">The essentials, without the clutter.</p>
-        <div class="sidebar-section">
-          <h2 class="sidebar-heading">LIBRARY</h2>
-          <div id="category-filters" class="category-filters" role="group" aria-label="Filter by subject"></div>
-        </div>
+        <p class="sidebar-intro">A focused index, organized by tags.</p>
         <div class="sidebar-section sidebar-tags">
-          <h2 class="sidebar-heading">POPULAR TAGS</h2>
+          <h2 class="sidebar-heading">TAGS</h2>
           <div id="sidebar-tags" class="tag-cloud" role="group" aria-label="Filter by tag"></div>
         </div>
         <div class="sidebar-footer">
@@ -38,7 +34,7 @@
 
       <div class="main-column">
         <header class="topbar">
-          <div class="breadcrumb"><span class="breadcrumb-icon">⌘</span> <span>Reference library</span><span class="slash">/</span><strong>All formulas</strong></div>
+          <div class="breadcrumb"><span class="breadcrumb-icon">#</span> <span>Tags</span><span class="slash">/</span><strong id="breadcrumb-tag">eigenvalue</strong></div>
           <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Toggle dark mode">
             <span id="theme-symbol" aria-hidden="true">☾</span><span id="theme-label">Dark mode</span>
           </button>
@@ -46,43 +42,41 @@
 
         <main id="main" class="content">
           <section class="hero" aria-labelledby="page-title">
-            <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PERSONAL MATH INDEX</div>
-            <h1 id="page-title">Every formula,<br /><em>right where you need it.</em></h1>
-            <p class="hero-description">A fast, searchable collection of standard results from graph theory and linear algebra. Find the equation, check its assumptions, and see how it works.</p>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> FORMULAS BY TAG</div>
+            <h1 id="page-title">Eigenvalue</h1>
+            <p class="hero-description">Eigenvalue formulas and identities, in one place. Search within this tag to find a result, review its assumptions, and see an example.</p>
             <div class="search-wrap">
               <span class="search-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
               </span>
               <label class="sr-only" for="search-input">Search formulas by title, meaning, tags, aliases, or formula</label>
-              <input id="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Search eigenvalue, trace, characteristic polynomial..." aria-controls="results" />
+              <input id="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Search eigenvalue formulas, identities, examples..." aria-controls="results" />
               <kbd class="search-shortcut" aria-hidden="true">/</kbd>
               <button id="clear-search" class="clear-search" type="button" hidden aria-label="Clear search">×</button>
             </div>
-            <div class="quick-filters"><span class="quick-label">TRY:</span><div id="quick-tags" class="quick-tag-list" role="group" aria-label="Suggested tags"></div></div>
           </section>
 
-          <section class="library" aria-labelledby="library-title">
+          <section class="formula-section" aria-labelledby="results-title">
             <div class="section-top">
               <div>
-                <div class="section-kicker">THE COLLECTION</div>
-                <h2 id="library-title">Formula library</h2>
+                <div class="section-kicker">CURRENT TAG</div>
+                <h2 id="results-title">Formulas</h2>
               </div>
               <span id="result-count" class="result-count" role="status" aria-live="polite">Loading…</span>
             </div>
-            <div id="active-filters" class="active-filters" hidden></div>
             <div id="results" class="results-grid" aria-busy="true"></div>
             <div id="empty-state" class="empty-state" hidden>
               <div class="empty-icon" aria-hidden="true">∅</div>
               <h3>No matching formulas</h3>
-              <p>Try a different keyword or remove a filter.</p>
-              <button id="reset-filters" type="button" class="reset-button">Clear all filters</button>
+              <p>Try a different keyword within this tag.</p>
+              <button id="reset-filters" type="button" class="reset-button">Clear search</button>
             </div>
             <div id="error-state" class="error-state" role="alert" hidden>
-              <h3>Couldn't load the formula library</h3>
+              <h3>Couldn't load formulas</h3>
               <p>Open this website via a local web server (not as a file:// URL), or check that <code>data/formulas.json</code> exists.</p>
             </div>
           </section>
-          <footer class="site-footer">Built with vanilla JavaScript + KaTeX <span>·</span> Edit <code>site/data/formulas.json</code> to grow your library.</footer>
+          <footer class="site-footer">Standard mathematics formulas and original explanations <span>·</span> Powered by KaTeX.</footer>
         </main>
       </div>
     </div>

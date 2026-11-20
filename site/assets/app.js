@@ -1,17 +1,12 @@
 "use strict";
 
-// Everything displayed in the library comes from the data file; no card content is hard-coded here.
+// The formula data stays separate from the presentation.
+// Add a new tag here when its content is ready to be published.
 const DATA_URL = "./data/formulas.json";
-const QUICK_TAGS = ["eigenvalue", "trace", "characteristic polynomial", "laplacian"];
-const FAVORITE_TAGS = ["eigenvalue", "trace", "characteristic polynomial", "determinant", "laplacian", "adjacency", "trees", "rank", "spectrum", "spanning trees"];
-const CATEGORIES = [
-  { value: "all", label: "All formulas", symbol: "▦" },
-  { value: "Graph Theory", label: "Graph Theory", symbol: "◇" },
-  { value: "Linear Algebra", label: "Linear Algebra", symbol: "𝛌" },
-];
+const ACTIVE_TAGS = ["eigenvalue"];
 
 const $ = (selector) => document.querySelector(selector);
-const state = { items: [], category: "all", tag: "", query: "" };
+const state = { items: [], tag: ACTIVE_TAGS[0], query: "" };
 
 function normalized(text) {
   return String(text ?? "")
@@ -32,8 +27,7 @@ function searchText(item) {
 }
 
 function matchItem(item) {
-  if (state.category !== "all" && item.category !== state.category) return false;
-  if (state.tag && !item.tags.includes(state.tag)) return false;
+  if (!item.tags.includes(state.tag)) return false;
   const terms = normalized(state.query).split(" ").filter(Boolean);
   return terms.every((term) => item._search.includes(term));
 }
@@ -69,7 +63,7 @@ function inlineMath(el, value) {
 }
 
 function setTag(tag) {
-  state.tag = state.tag === tag ? "" : tag;
+  state.tag = tag;
   update();
 }
 
@@ -82,31 +76,10 @@ function tagButton(tag, className) {
   return button;
 }
 
-function categoryFilters() {
-  const wrap = $("#category-filters");
-  wrap.replaceChildren();
-  for (const category of CATEGORIES) {
-    const count = state.items.filter((item) => category.value === "all" || item.category === category.value).length;
-    const button = make("button", "category-button");
-    button.type = "button";
-    button.setAttribute("aria-pressed", String(category.value === state.category));
-    button.append(make("span", "category-icon", category.symbol));
-    button.append(make("span", "", category.label));
-    button.append(make("span", "category-count", String(count)));
-    button.addEventListener("click", () => { state.category = category.value; update(); });
-    wrap.append(button);
-  }
-}
-
 function renderTagFilters() {
-  const allTags = new Set(state.items.flatMap((item) => item.tags));
-  for (const [selector, tags, className] of [
-    ["#quick-tags", QUICK_TAGS, "quick-tag"],
-    ["#sidebar-tags", FAVORITE_TAGS, "sidebar-tag"],
-  ]) {
-    const wrap = $(selector);
-    wrap.replaceChildren(...tags.filter((tag) => allTags.has(tag)).map((tag) => tagButton(tag, className)));
-  }
+  const tags = new Set(state.items.flatMap((item) => item.tags));
+  const wrap = $("#sidebar-tags");
+  wrap.replaceChildren(...ACTIVE_TAGS.filter((tag) => tags.has(tag)).map((tag) => tagButton(tag, "sidebar-tag")));
 }
 
 function detailRow(label, content) {
@@ -122,7 +95,7 @@ function renderCard(item, index) {
   const article = make("article", "formula-card");
   article.id = `formula-${item.id}`;
   const meta = make("div", "card-meta");
-  meta.append(make("span", "", item.category.toUpperCase()));
+  meta.append(make("span", "", `# ${state.tag}`));
   meta.append(make("span", "card-number", String(index + 1).padStart(2, "0")));
   article.append(meta);
   article.append(make("h3", "card-title", item.title));
@@ -133,10 +106,6 @@ function renderCard(item, index) {
   const meaning = make("p", "card-meaning");
   inlineMath(meaning, item.meaning);
   article.append(meaning);
-  const tags = make("div", "card-tags");
-  for (const tag of item.tags) tags.append(tagButton(tag, "card-tag"));
-  article.append(tags);
-
   const detailsId = `details-${item.id}`;
   const toggle = make("button", "details-toggle");
   toggle.type = "button";
@@ -161,40 +130,21 @@ function renderCard(item, index) {
   return article;
 }
 
-function activeFilterChips() {
-  const wrap = $("#active-filters");
-  wrap.replaceChildren();
-  const entries = [];
-  if (state.category !== "all") entries.push([state.category, () => { state.category = "all"; }]);
-  if (state.tag) entries.push([`# ${state.tag}`, () => { state.tag = ""; }]);
-  if (state.query.trim()) entries.push([`“${state.query.trim()}”`, () => { state.query = ""; $("#search-input").value = ""; }]);
-  wrap.hidden = entries.length === 0;
-  if (!entries.length) return;
-  wrap.append(make("span", "active-filter-label", "ACTIVE FILTERS"));
-  for (const [label, onRemove] of entries) {
-    const chip = make("button", "active-filter-chip", `${label}  ×`);
-    chip.type = "button";
-    chip.title = `Remove ${label} filter`;
-    chip.addEventListener("click", () => { onRemove(); update(); });
-    wrap.append(chip);
-  }
-}
-
 function syncURL() {
   const url = new URL(window.location.href);
   for (const key of ["q", "tag", "category"]) url.searchParams.delete(key);
   if (state.query.trim()) url.searchParams.set("q", state.query.trim());
-  if (state.tag) url.searchParams.set("tag", state.tag);
-  if (state.category !== "all") url.searchParams.set("category", state.category);
+  if (state.tag !== ACTIVE_TAGS[0]) url.searchParams.set("tag", state.tag);
   window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
 }
 
 function update() {
-  categoryFilters();
   renderTagFilters();
-  activeFilterChips();
-  const filtered = state.items.filter(matchItem);
-  $("#result-count").textContent = `${filtered.length} of ${state.items.length} formulas`;
+  const eligible = state.items.filter((item) => item.tags.includes(state.tag));
+  const filtered = eligible.filter(matchItem);
+  $("#breadcrumb-tag").textContent = state.tag;
+  $("#page-title").textContent = state.tag.charAt(0).toUpperCase() + state.tag.slice(1);
+  $("#result-count").textContent = `${filtered.length} of ${eligible.length} formulas`;
   $("#results").replaceChildren(...filtered.map(renderCard));
   $("#empty-state").hidden = filtered.length !== 0;
   $("#clear-search").hidden = !state.query;
@@ -218,13 +168,12 @@ async function init() {
 
   const params = new URLSearchParams(window.location.search);
   state.query = params.get("q") || "";
-  state.tag = params.get("tag") || "";
-  const initialCategory = params.get("category");
-  if (CATEGORIES.some((category) => category.value === initialCategory)) state.category = initialCategory;
+  const requestedTag = params.get("tag");
+  if (ACTIVE_TAGS.includes(requestedTag)) state.tag = requestedTag;
   $("#search-input").value = state.query;
   $("#search-input").addEventListener("input", (event) => { state.query = event.target.value; update(); });
   $("#clear-search").addEventListener("click", () => { state.query = ""; $("#search-input").value = ""; update(); $("#search-input").focus(); });
-  $("#reset-filters").addEventListener("click", () => { state.query = ""; state.tag = ""; state.category = "all"; $("#search-input").value = ""; update(); });
+  $("#reset-filters").addEventListener("click", () => { state.query = ""; $("#search-input").value = ""; update(); });
   document.addEventListener("keydown", (event) => {
     const typing = ["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName) || document.activeElement?.isContentEditable;
     if ((event.key === "/" && !typing) || ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k")) {
